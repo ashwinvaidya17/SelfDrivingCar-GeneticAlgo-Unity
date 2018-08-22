@@ -34,3 +34,6 @@ Steps:
 
 ## Known Issues
 - The matrix multiplication is hard coded. Needs to be changed
+
+## Post
+Read the [blog post](https://ashwinvaidya.com/blog/posts/self-driving-car-using-genetic-algorithm-in-unity) on what inspired me to take up this project and how I went about it.
