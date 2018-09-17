@@ -55,6 +55,51 @@ public class NN : MonoBehaviour {
         }
     }
 
+    public NN(string filepath)
+    {
+        StreamReader reader = new StreamReader(filepath, true);
+        string line;
+        try
+        {
+            line = reader.ReadLine();
+            Debug.Log(line);
+            string []line_arr = line.Split(' ');
+            for (int i = 0; i < 6; i++)
+                _inputBias[i] = float.Parse(line_arr[i]);
+            line = reader.ReadLine();
+            Debug.Log(line);
+            line_arr = line.Split(' ');
+            for (int i = 0; i < 5; i++)
+                _hiddenBias[i] = float.Parse(line_arr[i]);
+            line = reader.ReadLine();
+            Debug.Log(line);
+            line_arr = line.Split(' ');
+            for (int i = 0; i < 6; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    _inputWeights[i, j] = float.Parse(line_arr[i * 5 + j]);
+                }
+            }
+            line = reader.ReadLine();
+            Debug.Log(line);
+            line_arr = line.Split(' ');
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    _hiddenWeights[i, j] = float.Parse(line_arr[i * 2 + j]);
+                }
+            }
+            reader.Close();
+        }
+        catch(System.Exception e)
+        {
+            Debug.Log("Error reading the file " + e.Message + e.StackTrace);
+        }
+        
+    }
+
     public NN(NN parentA, NN parentB)
     {
         //crossover - all crossovers are equal
@@ -138,14 +183,11 @@ public class NN : MonoBehaviour {
     public void save()
     {
         StreamWriter write = new StreamWriter("./nn.txt", true);
-        write.Write("input bias: ");
         for (int i = 0; i < 6; i++)
             write.Write(_inputBias[i] + " ");
         write.Write("\n");
-        write.Write("Hidden bias: ");
         for (int i = 0; i < 5; i++)
             write.Write(_hiddenBias[i] + " ");
-        write.Write("\ninput weights bias: ");
         for (int i = 0; i < 6; i++)
         {
             for (int j = 0; j < 5; j++)
@@ -153,7 +195,6 @@ public class NN : MonoBehaviour {
                 write.Write(_inputWeights[i, j] + " ");
             }
         }
-        write.Write("\nHidden weights: ");
         for (int i = 0; i < 5; i++)
         {
             for (int j = 0; j < 2; j++)

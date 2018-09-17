@@ -21,6 +21,11 @@ Steps:
 9. The walls of the track should have tag set to "Wall"
 10. Change speed limit of the Car to tune training.
 
+## Other Information
+
+nn.txt contains trained weights.
+Check Load From File on the GameObject which has Nature.cs attached. This will load pre trained weights.
+
 ---
 
 ## TO-DO

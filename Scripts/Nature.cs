@@ -13,6 +13,7 @@ public class Nature : MonoBehaviour {
     int currentPopCount;
     int Genetation=0;
     public GameObject Car;
+    public bool LoadFromFile = false;
 
     List<NN> children = new List<NN>();
 
@@ -20,13 +21,22 @@ public class Nature : MonoBehaviour {
     public Text Populationtext;
 	// Use this for initialization
 	void Start () {
-        //Create initial population
-	    for(int i=0; i<totalPopulation; i++)
+
+        if (LoadFromFile == false)
         {
-            children.Add(new NN());
+            //Create initial population
+            for (int i = 0; i < totalPopulation; i++)
+            {
+                children.Add(new NN());
+            }
+
+
+            StartCoroutine(Generate());
         }
-       
-                StartCoroutine(Generate());
+        else
+        {
+            Car.GetComponent<CustomCarController>().brain = new NN("./nn.txt");
+        }
                
 	}
 
